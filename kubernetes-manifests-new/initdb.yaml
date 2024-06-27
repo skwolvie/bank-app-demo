@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: accounts-db-init
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-init
+        image: peoples93/initdb:v1.0
+        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: accounts-db-credentials
+              key: db_endpoint
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: accounts-db-credentials
+              key: db_name
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: accounts-db-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: accounts-db-credentials
+              key: password
+        - name: LOCAL_ROUTING_NUM
+          value: "883745000"
+      restartPolicy: Never
+  backoffLimit: 4
