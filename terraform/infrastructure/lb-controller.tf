@@ -8,12 +8,14 @@ resource "aws_iam_policy" "lb_controller_policy" {
 
 # Fetching information about the EKS cluster (used for updating the Kubernetes provider)
 data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_name
+  depends_on = [module.eks]
+  name       = module.eks.cluster_name
 }
 
 # Fetching authentication information for the EKS cluster
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_name
+  depends_on = [module.eks]
+  name       = module.eks.cluster_name
 }
 
 # Fetching the AWS account identity information
