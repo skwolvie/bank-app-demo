@@ -187,7 +187,6 @@
                       </platform>
                     </platforms>
                 </configuration>
-
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
