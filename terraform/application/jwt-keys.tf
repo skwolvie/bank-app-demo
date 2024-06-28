@@ -6,6 +6,7 @@ resource "tls_private_key" "jwt" {
 resource "kubernetes_secret" "jwt_key" {
   metadata {
     name = "jwt-key"
+    /*
     labels = {
       app         = "userservice"
       application = "bank-of-anthos"
@@ -13,11 +14,12 @@ resource "kubernetes_secret" "jwt_key" {
       team        = "accounts"
       tier        = "backend"
     }
+    */
   }
 
   data = {
-    "jwtRS256.key"     = base64encode(tls_private_key.jwt.private_key_pem)
-    "jwtRS256.key.pub" = base64encode(tls_private_key.jwt.public_key_pem)
+    "jwtRS256.key"     = tls_private_key.jwt.private_key_pem
+    "jwtRS256.key.pub" = tls_private_key.jwt.public_key_pem
   }
 
   type = "Opaque"

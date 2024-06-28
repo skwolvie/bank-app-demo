@@ -64,10 +64,10 @@ resource "kubernetes_secret" "ledger_db_credentials" {
   }
   # Encoding the database credentials in base64
   data = {
-    username      = var.ledger_db_user
-    password      = random_password.ledger_db_password.result
-    db_name       = var.ledger_db_name
-    db_endpoint   = local.rds_endpoint_without_port
-    ledger_db_uri = "postgresql://${var.ledger_db_user}:${random_password.ledger_db_password.result}@${local.rds_endpoint_without_port}/${var.ledger_db_name}"
+    username              = var.ledger_db_user
+    password              = random_password.ledger_db_password.result
+    db_name               = var.ledger_db_name
+    db_endpoint           = local.rds_endpoint_without_port
+    spring_datasource_url = "jdbc:postgresql://${local.rds_endpoint_without_port}:5432/${var.ledger_db_name}"
   }
 }
