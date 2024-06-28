@@ -17,7 +17,6 @@
 Manages internal user contacts and external accounts.
 """
 
-import base64
 import atexit
 import logging
 import os
@@ -39,12 +38,6 @@ from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 from db import ContactsDb
 
-def decode_base64(data):
-    """Decode base64, padding being optional."""
-    missing_padding = len(data) % 4
-    if missing_padding:
-        data += '=' * (4 - missing_padding)
-    return base64.b64decode(data).decode('utf-8')
 
 def create_app():
     """Flask application factory to create instances
@@ -224,17 +217,9 @@ def create_app():
 
     # Configure database connection
     try:
-        encoded_db_uri = os.environ.get("ACCOUNTS_DB_URI")
-        app.logger.debug(f"Encoded DB URI: {encoded_db_uri}")
-        db_uri = decode_base64(encoded_db_uri)
-        app.logger.debug(f"Decoded DB URI: {db_uri}")
-
-        contacts_db = ContactsDb(db_uri, app.logger)
+        contacts_db = ContactsDb(os.environ.get("ACCOUNTS_DB_URI"), app.logger)
     except OperationalError:
         app.logger.critical("database connection failed")
-        sys.exit(1)
-    except Exception as e:
-        app.logger.critical(f"Failed to initialize contacts_db: {e}")
         sys.exit(1)
     return app
 

@@ -16,7 +16,6 @@
 Userservice manages user account creation, user login, and related tasks
 """
 
-import base64
 import atexit
 from datetime import datetime, timedelta
 import logging
@@ -243,14 +242,7 @@ def create_app():
 
     # Configure database connection
     try:
-        # Decode the ACCOUNTS_DB_URI if it is base64 encoded
-        encoded_db_uri = os.environ.get("ACCOUNTS_DB_URI")
-        if encoded_db_uri:
-            app.logger.debug(f"Encoded DB URI: {encoded_db_uri}")
-            db_uri = base64.b64decode(encoded_db_uri).decode('utf-8')
-            app.logger.debug(f"Decoded DB URI: {db_uri}")
-
-        users_db = UserDb(db_uri, app.logger)
+        users_db = UserDb(os.environ.get("ACCOUNTS_DB_URI"), app.logger)
     except OperationalError:
         app.logger.critical("users_db database connection failed")
         sys.exit(1)
