@@ -68,6 +68,6 @@ resource "kubernetes_secret" "accounts_db_credentials" {
     password        = random_password.accounts_db_password.result
     db_name         = var.accounts_db_name
     db_endpoint     = local.rds_endpoint_without_port
-    accounts_db_uri = "postgresql://${var.accounts_db_user}:${random_password.accounts_db_password.result}@${local.rds_endpoint_without_port}/${var.accounts_db_name}"
+    accounts_db_uri = "postgresql://${var.accounts_db_user}:${urlencode(random_password.accounts_db_password.result)}@${local.rds_endpoint_without_port}/${var.accounts_db_name}"
   }
 }
