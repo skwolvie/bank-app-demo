@@ -55,6 +55,8 @@ spec:
         - env:
             - name: VERSION
               value: v0.6.4
+            - name: BANK_NAME
+              value: "Bank of Rodin"
             - name: PORT
               value: "8080"
             - name: ENABLE_TRACING
@@ -91,6 +93,7 @@ spec:
             - configMapRef:
                 name: service-api-config
           image: peoples93/frontend:v0.6.4
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /ready
