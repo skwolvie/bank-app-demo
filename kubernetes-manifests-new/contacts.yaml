@@ -86,7 +86,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: environment-config
-          image: peoples93/contacts:v1.0
+          image: peoples93/contacts:v0.6.4
           imagePullPolicy: Always
           name: contacts
           readinessProbe:
