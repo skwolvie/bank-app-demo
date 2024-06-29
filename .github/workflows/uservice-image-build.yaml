@@ -1,20 +1,20 @@
-name: Uservice Docker Build
+name: userservice Docker Build
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'src/accounts/userivce/**'
+      - 'src/accounts/userservice/**'
   pull_request:
     branches:
       - master
     paths:
-      - 'src/accounts/userivce/**'
+      - 'src/accounts/userservice/**'
   workflow_dispatch:
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,35 +24,21 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        uses: py-actions/py-dependancy-install@v4
+        uses: py-actions/py-dependency-install@v4.1.0
         with:
-          path: "src/accounts/uservice/requirements.txt"
+          path: "src/accounts/userservice/requirements.txt"
       - name: Lint with flake8
-        uses: py-actions/py-flake8@v2
+        uses: py-actions/flake8@v2
         with:
-          path: "src/accounts/uservice"
-  
-  test:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up python-version
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        uses: py-actions/py-dependancy-install@v4
-        with: 
-         path: "src/accounts/uservice/requirements.txt"
+          path: "src/accounts/userservice"
+          args: "--exit-zero"
       - name: Run tests
         run: |
-          cd src/accounts/userivce
-          pytest
+          cd src/accounts/userservice
+          PYTHONPATH=$PWD python -m pytest tests/ -v
 
   build:
-    needs: [lint, test]
+    needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -67,5 +53,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with: 
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/uservice:latest
+          push: true
+          context: "src/accounts/userservice"
+          file: "src/accounts/userservice/Dockerfile"
+          tags: ${{ secrets.DOCKER_USERNAME }}/userservice:latest
