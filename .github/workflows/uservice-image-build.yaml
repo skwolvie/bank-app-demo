@@ -1,4 +1,4 @@
-name: userservice Docker Build
+name: Userservice Docker Build
 
 on:
   push:

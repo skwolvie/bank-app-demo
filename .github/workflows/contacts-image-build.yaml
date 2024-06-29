@@ -1,4 +1,4 @@
-name: contacts Docker Build
+name: Contacts Docker Build
 
 on:
   push:
