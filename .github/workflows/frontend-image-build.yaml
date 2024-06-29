@@ -1,4 +1,4 @@
-name: contacts Docker Build
+name: Frontend Docker Build
 
 on:
   push:
@@ -56,4 +56,4 @@ jobs:
           push: true
           context: "src/frontend"
           file: "src/frontend/Dockerfile"
-          tags: ${{ secrets.DOCKER_USERNAME }}/contacts:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/frontend:latest
