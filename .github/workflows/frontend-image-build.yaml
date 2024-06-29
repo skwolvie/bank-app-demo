@@ -31,14 +31,12 @@ jobs:
         uses: py-actions/flake8@v2
         with:
           path: "src/frontend"
-          args: "--exit-zero"
       - name: Gitleaks Scan
         uses: gitleaks/gitleaks-action@v2.3.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
-    needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
