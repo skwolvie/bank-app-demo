@@ -27,6 +27,14 @@ terraform {
       source  = "hashicorp/tls"
       version = "4.0.5"
     }
+    null = {
+      source  = "hashicorp/null"
+      version = "3.2.2"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.6.2"
+    }
   }
 }
 
@@ -49,5 +57,13 @@ provider "helm" {
 }
 
 provider "tls" {
+  # Configuration options
+}
+
+provider "null" {
+  # Configuration options
+}
+
+provider "random" {
   # Configuration options
 }
