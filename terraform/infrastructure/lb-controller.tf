@@ -13,11 +13,12 @@ data "aws_eks_cluster" "cluster" {
 }
 
 # Fetching authentication information for the EKS cluster
+/*
 data "aws_eks_cluster_auth" "cluster" {
   depends_on = [module.eks]
   name       = module.eks.cluster_name
 }
-
+*/
 # Fetching the AWS account identity information
 data "aws_caller_identity" "current" {
 }
