@@ -8,7 +8,6 @@ terraform {
     region         = "eu-central-1"
     dynamodb_table = "banking-demo-terraform-state-lock"
     encrypt        = true
-    profile        = "personal"
   }
 
   required_providers {
@@ -33,8 +32,7 @@ terraform {
 
 # AWS provider configuration
 provider "aws" {
-  region  = "eu-central-1"
-  profile = "personal"
+  region = "eu-central-1"
 }
 
 
