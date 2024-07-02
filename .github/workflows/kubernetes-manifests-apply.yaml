@@ -37,7 +37,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Update kubeconfig
-        aws eks update-kubeconfig --name ${{ github.event.inputs.cluster_name }} --region ${{ env.AWS_REGION }} --kubeconfig ${{ env.KUBECONFIG }}
+        run: | 
+          aws eks update-kubeconfig --name ${{ github.event.inputs.cluster_name }} --region ${{ env.AWS_REGION }} --kubeconfig ${{ env.KUBECONFIG }}
 
       - name: Apply Kubernetes Manifests
         run: |
