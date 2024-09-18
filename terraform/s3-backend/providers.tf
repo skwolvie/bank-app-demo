@@ -3,10 +3,10 @@ terraform {
   required_version = "1.6.6"
 
   backend "s3" {
-    bucket         = "banking-demo-terraform-state"
+    bucket         = "banking-demo-terraform-states"
     key            = "backend-state/terraform.tfstate"
-    region         = "eu-central-1"
-    dynamodb_table = "banking-demo-terraform-state-lock"
+    region         = "us-west-1"
+    dynamodb_table = "banking-demo-terraform-states-lock"
     encrypt        = true
     profile        = "personal"
   }
@@ -21,6 +21,6 @@ terraform {
 
 # AWS provider configuration
 provider "aws" {
-  region  = "eu-central-1"
+  region  = "us-west-1"
   profile = "personal"
 }

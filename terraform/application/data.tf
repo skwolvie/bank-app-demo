@@ -1,9 +1,9 @@
 data "terraform_remote_state" "infrastructure" {
   backend = "s3"
   config = {
-    bucket  = "banking-demo-terraform-state"
+    bucket  = "banking-demo-terraform-states"
     key     = "infrastructure-state/terraform.tfstate"
-    region  = "eu-central-1"
+    region  = "us-west-1"
     profile = "personal"
   }
 }

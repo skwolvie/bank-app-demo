@@ -19,7 +19,7 @@ on:
         default: 'bank-of-anthos-demo-cluster'
 
 env:
-  AWS_REGION: 'eu-central-1'
+  AWS_REGION: 'us-west-1'
   KUBECONFIG: './kubeconfig'
 
 jobs:
