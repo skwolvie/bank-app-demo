@@ -1,3 +1,46 @@
+# Personal Notes on how to run: 
+1. Git clone / Download Zip
+2. open the project directory in terminal / vscode
+3. Prerequisites (Chatgpt and set up the following):
+   - Install Xcode
+   - Install Git
+   - Install Homebrew 
+   - Install AWS CLI
+   -    Configure AWS
+   - Install Kubectl
+   - Install Kubernetes
+4. Login to AWS Console &
+   - create an S3 bucket in us-west-1 (North Virginia). Name of bucket= banking-demo-terraform-state
+   - create a dynamo DB table in us-west-1. Name of table= banking-demo-terraform-state-lock. Partition Key = LockID
+5. Setup Infrastructure:
+```bash
+cd terraform/infrastructure
+terraform init
+terraform apply
+```
+6. Setup Application
+```bash
+cd ../application
+terraform init
+terraform apply
+```
+7. Setup Kube
+```bash
+cd kubernetes-manifests-new
+kubectl apply -f .
+```
+8. Destroy Infrastructure
+cd terraform/infrastructure
+terraform destroy
+
+9. Destroy Application
+cd ../application
+terraform destroy
+
+10. Destroy Kube
+cd kubernetes-manifests-new
+kubectl delete -f .
+
 # Bank of Anthos AWS Demo
 
 This project is an AWS-adapted version of the Google Cloud Bank of Anthos demo application. It demonstrates a cloud-native banking application running on Amazon EKS (Elastic Kubernetes Service).
