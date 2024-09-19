@@ -30,17 +30,20 @@ cd kubernetes-manifests-new
 kubectl apply -f .
 ```
 8. Destroy Infrastructure
+```bash
 cd terraform/infrastructure
 terraform destroy
-
+```
 9. Destroy Application
+```bash
 cd ../application
 terraform destroy
-
+```
 10. Destroy Kube
+```bash
 cd kubernetes-manifests-new
 kubectl delete -f .
-
+```
 # Bank of Anthos AWS Demo
 
 This project is an AWS-adapted version of the Google Cloud Bank of Anthos demo application. It demonstrates a cloud-native banking application running on Amazon EKS (Elastic Kubernetes Service).
